@@ -1,0 +1,6 @@
+﻿  main.cpp
+c:\users\fszat\source\repos\wma\wma\main.cpp(69): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\fszat\source\repos\wma\wma\main.cpp(164): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\fszat\source\repos\wma\wma\main.cpp(254): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\fszat\source\repos\wma\wma\main.cpp(131): warning C4101: 'prev_sum': unreferenced local variable
+  WMA.vcxproj -> C:\Users\fszat\source\repos\WMA\x64\Debug\WMA.exe
