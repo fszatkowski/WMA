@@ -1,6 +1,9 @@
-﻿  main.cpp
-c:\users\fszat\source\repos\wma\wma\main.cpp(69): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\fszat\source\repos\wma\wma\main.cpp(164): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\fszat\source\repos\wma\wma\main.cpp(254): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\fszat\source\repos\wma\wma\main.cpp(131): warning C4101: 'prev_sum': unreferenced local variable
+﻿  distance.cpp
+c:\users\fszat\source\repos\wma\wma\distance.cpp(80): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\fszat\source\repos\wma\wma\distance.cpp(81): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\fszat\source\repos\wma\wma\distance.cpp(85): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\fszat\source\repos\wma\wma\distance.cpp(86): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+c:\users\fszat\source\repos\wma\wma\main.cpp(144): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
   WMA.vcxproj -> C:\Users\fszat\source\repos\WMA\x64\Debug\WMA.exe
