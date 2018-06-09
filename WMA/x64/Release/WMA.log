@@ -1,8 +1,12 @@
-﻿  main.cpp
-c:\users\fszat\source\repos\wma\wma\main.cpp(133): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+﻿  distance.cpp
+c:\users\fszat\source\repos\wma\wma\distance.cpp(89): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\fszat\source\repos\wma\wma\distance.cpp(90): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\fszat\source\repos\wma\wma\distance.cpp(94): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\fszat\source\repos\wma\wma\distance.cpp(95): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\fszat\source\repos\wma\wma\distance.cpp(123): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Generating code
-  2 of 340 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  1 of 340 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   WMA.vcxproj -> C:\Users\fszat\source\repos\WMA\x64\Release\WMA.exe

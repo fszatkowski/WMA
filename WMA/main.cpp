@@ -6,7 +6,8 @@ using namespace std;
 //sources adress
 string path = "C:/Users/fszat/source/repos/WMA/src/";
 
-//initialize cascade classifier
+//initialize cascade classifier - a class for object detection
+//use pretrained opencv haar cascade
 string face_cascade_name = path + "haarcascade_frontalface_alt.xml";
 CascadeClassifier face_cascade;
 
@@ -40,7 +41,15 @@ int main(int argc, char **argv)
 	cvtColor(base_face, gray_base_face, CV_BGR2GRAY);
 
 	//detect faces
+	//returns list of rectangles containing detected faces
+	//detects objects of different sizes
+	//1.05 - how much is the image scaled
+	//3 - minimum neighboors detected to keep processing face
+	//flags - not used
+	//minimum size of detected face
 	face_cascade.detectMultiScale(gray_base_face, face_seeked, 1.05, 3, 0 | CV_HAAR_SCALE_IMAGE, Size(20, 20));
+	
+	//draw rectangle on detected face
 	for (size_t i = 0; i < face_seeked.size(); i++)
 	{
 		rectangle(base_face, Size(face_seeked[i].x, face_seeked[i].y), Size(face_seeked[i].x + face_seeked[i].width, face_seeked[i].y + face_seeked[i].height), Scalar(255, 0, 255), 2, 8);
@@ -67,7 +76,8 @@ int main(int argc, char **argv)
 	//actual frame
 	Mat frame;
 
-	//and previous one with the face coords
+	//and some data from previous frames
+	//to track faces better
 	Mat previous_frame;
 	Rect previous_face;
 	bool frame_filled = true;
@@ -199,11 +209,10 @@ int main(int argc, char **argv)
 
 		//RESULT
 
-		
 
 		//show result
 		imshow("faceDetected", frame);
-		char c = waitKey(0);
+		char c = waitKey(20);
 		if (c == 'q') break;
 
 		previous_frame = gray_frame;

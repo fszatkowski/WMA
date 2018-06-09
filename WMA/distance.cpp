@@ -22,8 +22,7 @@ cv::Mat gray_hist(const cv::Mat &frame, const cv::Rect &face, const cv::Size &si
 		hist, 1, histSize, ranges, 
 		true, 
 		false);
-	//normalize(hist, hist, 0, 1, CV_MINMAX);
-
+	
 	return hist;
 }
 
@@ -37,16 +36,23 @@ cv::Mat hsv_hist(const cv::Mat &frame, const cv::Rect &face, const cv::Size &siz
 
 	//hue and saturation quantisation
 	int hbins = 30, sbins = 32;
+	//two channels for hsv image - hue and saturation
 	int channels[] = { 0,  1 };
+	//size of histogram
 	int histSize[] = { hbins, sbins };
+	//hue ranges
 	float hranges[] = { 0, 180 };
+	//saturation ranges
 	float sranges[] = { 0, 255 };
 	const float* ranges[] = { hranges, sranges };
 
+	//calculate histogram using values above
 	calcHist(&h, 1, channels, Mat(), // do not use mask   
 		hist, 2, histSize, ranges,
 		true, // the histogram is uniform   
 		false);
+
+	//normalize histogram - min value is 0, max value is 1
 	normalize(hist, hist, 0, 1, CV_MINMAX);
 
 	return hist;
@@ -58,7 +64,7 @@ double distance_emd(const cv::Mat &frame, const cv::Rect &face, const cv::Mat &h
 	cv::Mat to_check = hsv_hist(frame, face, size);
 	cv::Mat model_histogram = hsv_histogram.clone();
 
-	//make signatures
+	//values for signatures
 	int hbins = 30, sbins = 32;
 	int channels[] = { 0,  1 };
 	int histSize[] = { hbins, sbins };
@@ -67,10 +73,13 @@ double distance_emd(const cv::Mat &frame, const cv::Rect &face, const cv::Mat &h
 	const float* ranges[] = { hranges, sranges };
 	int numrows = hbins * sbins;
 
+	//create signatures - numrows rows, 3 cols, 32bit float 1 channel
+	//for every combination of bins 
 	Mat sig1(numrows, 3, CV_32FC1);
 	Mat sig2(numrows, 3, CV_32FC1);
 
-	//fill value into signature
+	//fill values into signatures
+	//for every combination of bins fill in histogram value, hue value and saturation value
 	for (int h = 0; h < hbins; h++)
 	{
 		for (int s = 0; s < sbins; ++s)
@@ -87,15 +96,19 @@ double distance_emd(const cv::Mat &frame, const cv::Rect &face, const cv::Mat &h
 		}
 	}
 
-	//return similarity of 2 images
-	//0 means identical
 
+	//returns distance between two signatures using metric CV_DIST_L2 - euclidean distance
+	//emd - earth mover distance decides how close are two images
+	//returns minimal "work" needed to turn one histogram into each other
+	//0 means images are identical
 	double distance = cv::EMD(sig1, sig2, CV_DIST_L2);
-	std::cout << distance << std::endl;
+	//std::cout << distance << std::endl;
 
 	return distance; 
 }
 
+//decides if frame is different enough 
+//if it is, preform matching using distance function
 bool scene_change(const cv::Mat & frame, const cv::Mat previous_frame)
 {
 	if (previous_frame.empty())
@@ -104,11 +117,14 @@ bool scene_change(const cv::Mat & frame, const cv::Mat previous_frame)
 	Mat difference;
 	absdiff(frame, previous_frame, difference);
 
+	//threshold - if image intensity is higher than 150, set it to 255, 
+	//else - set it to 0
 	threshold(difference, difference, 150, 255, THRESH_BINARY);
 	int value = sum(difference)[0];
 	//std::cout << value << std::endl;
 	//std::cout << frame.cols * frame.rows << std::endl;
 
+	//if the sum of all pixels after thresholding the difference is high enough, scene changed
 	if (value > frame.cols * frame.rows * 30)
 	{
 		return 1;
